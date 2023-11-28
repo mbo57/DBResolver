@@ -10,5 +10,5 @@ CREATE TABLE user
 
 INSERT INTO user (name) VALUES ("佐藤太郎");
 INSERT INTO user (name) VALUES ("鈴木一郎");
-INSERT INTO user (name) VALUES ("user1");
+INSERT INTO user (name) VALUES ("users1");
 INSERT INTO user (name) VALUES ("abc");
