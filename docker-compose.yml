@@ -1,0 +1,50 @@
+version: '3.3'
+
+services:
+  go:
+    # tty: true
+    build:
+      context: ./go/
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./go:/app
+    networks:
+      - network
+
+  writer:
+    image: mysql:5.7
+    build:
+      context: ./writer/
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: sample
+      MYSQL_PASSWORD: password
+    ports:
+      - "33007:3306"
+    volumes:
+      - ./writer/conf:/etc/mysql/conf.d 
+      - ./writer/initdb:/docker-entrypoint-initdb.d
+    networks:
+      - network
+
+  reader:
+    image: mysql:5.7
+    build:
+      context: ./reader/
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: sample
+      MYSQL_PASSWORD: password
+    ports:
+      - "33008:3306"
+    volumes:
+      - ./reader/conf:/etc/mysql/conf.d 
+      - ./reader/initdb:/docker-entrypoint-initdb.d
+    networks:
+      - network
+networks:
+  network:
