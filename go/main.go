@@ -48,7 +48,6 @@ func main() {
 	var Users []User
 	tx := db.Begin()
 	tx.Create(&User{Name: "test111"})
-	// db.Clauses(dbresolver.Use())(&User{Id: 1}).First(&Users)
 	tx.Model(&User{Id: 1}).First(&Users)
 	fmt.Printf("%+v", Users)
 	tx.Commit()
